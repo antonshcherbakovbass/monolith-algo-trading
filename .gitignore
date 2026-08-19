@@ -54,6 +54,10 @@ desktop.ini
 # Docker volumes
 docker-data/
 
+# Large build artifacts (use GitHub Releases instead)
+dist_installers/windows/*.exe
+dist_installers/windows/*.msi
+
 # Keep bootstrap models — they are intentional
 !hedge_fund/ml/models/
 !hedge_fund/ml/models/*.pkl
