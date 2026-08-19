@@ -1,0 +1,181 @@
+stocks:
+  - ticker: SBER
+    name_ru: "Сбербанк"
+    lot_size: 10
+    min_price_step: 0.01
+    board: TQBR
+    market: shares
+
+  - ticker: GAZP
+    name_ru: "Газпром"
+    lot_size: 10
+    min_price_step: 0.01
+    board: TQBR
+    market: shares
+
+  - ticker: LKOH
+    name_ru: "ЛУКОЙЛ"
+    lot_size: 1
+    min_price_step: 0.5
+    board: TQBR
+    market: shares
+
+  - ticker: YNDX
+    name_ru: "Яндекс"
+    lot_size: 1
+    min_price_step: 0.1
+    board: TQBR
+    market: shares
+
+  - ticker: GMKN
+    name_ru: "Норникель"
+    lot_size: 1
+    min_price_step: 1.0
+    board: TQBR
+    market: shares
+
+  - ticker: ROSN
+    name_ru: "Роснефть"
+    lot_size: 1
+    min_price_step: 0.05
+    board: TQBR
+    market: shares
+
+  - ticker: VTBR
+    name_ru: "ВТБ"
+    lot_size: 10000
+    min_price_step: 0.000005
+    board: TQBR
+    market: shares
+
+  - ticker: NVTK
+    name_ru: "НОВАТЭК"
+    lot_size: 1
+    min_price_step: 0.1
+    board: TQBR
+    market: shares
+
+  - ticker: MGNT
+    name_ru: "Магнит"
+    lot_size: 1
+    min_price_step: 0.5
+    board: TQBR
+    market: shares
+
+  - ticker: POLY
+    name_ru: "Полиметалл"
+    lot_size: 1
+    min_price_step: 0.05
+    board: TQBR
+    market: shares
+
+  - ticker: TATN
+    name_ru: "Татнефть"
+    lot_size: 1
+    min_price_step: 0.1
+    board: TQBR
+    market: shares
+
+  - ticker: NLMK
+    name_ru: "НЛМК"
+    lot_size: 10
+    min_price_step: 0.02
+    board: TQBR
+    market: shares
+
+  - ticker: ALRS
+    name_ru: "АЛРОСА"
+    lot_size: 10
+    min_price_step: 0.01
+    board: TQBR
+    market: shares
+
+  - ticker: MOEX
+    name_ru: "Мосбиржа"
+    lot_size: 10
+    min_price_step: 0.01
+    board: TQBR
+    market: shares
+
+  - ticker: AFLT
+    name_ru: "Аэрофлот"
+    lot_size: 10
+    min_price_step: 0.01
+    board: TQBR
+    market: shares
+
+  - ticker: CHMF
+    name_ru: "Северсталь"
+    lot_size: 1
+    min_price_step: 0.1
+    board: TQBR
+    market: shares
+
+  - ticker: PHOR
+    name_ru: "ФосАгро"
+    lot_size: 1
+    min_price_step: 0.5
+    board: TQBR
+    market: shares
+
+  - ticker: SNGS
+    name_ru: "Сургутнефтегаз"
+    lot_size: 100
+    min_price_step: 0.005
+    board: TQBR
+    market: shares
+
+  - ticker: PLZL
+    name_ru: "Полюс Золото"
+    lot_size: 1
+    min_price_step: 1.0
+    board: TQBR
+    market: shares
+
+  - ticker: RUAL
+    name_ru: "РУСАЛ"
+    lot_size: 10
+    min_price_step: 0.005
+    board: TQBR
+    market: shares
+
+futures:
+  - ticker: SiZ4
+    name_ru: "Фьючерс на курс доллар-рубль"
+    lot_size: 1
+    min_price_step: 1.0
+    board: RFUD
+    market: forts
+    expiry: 2024-12-19
+
+  - ticker: RIZ4
+    name_ru: "Фьючерс на индекс РТС"
+    lot_size: 1
+    min_price_step: 10.0
+    board: RFUD
+    market: forts
+    expiry: 2024-12-19
+
+  - ticker: BRF5
+    name_ru: "Фьючерс на нефть Brent"
+    lot_size: 1
+    min_price_step: 0.01
+    board: RFUD
+    market: forts
+    expiry: 2025-01-02
+
+  - ticker: GZZ4
+    name_ru: "Фьючерс на акции Газпром"
+    lot_size: 1
+    min_price_step: 1.0
+    board: RFUD
+    market: forts
+    expiry: 2024-12-19
+
+  - ticker: SRZ4
+    name_ru: "Фьючерс на акции Сбербанк"
+    lot_size: 1
+    min_price_step: 1.0
+    board: RFUD
+    market: forts
+    expiry: 2024-12-19

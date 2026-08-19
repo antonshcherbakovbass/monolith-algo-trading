@@ -1,0 +1,30 @@
+Photographed wood used as UI textures (not procedurally drawn grain).
+
+buckeye_backdrop.jpg  graded from Flamed Quartersawn Ash Guitar Top.jpg
+                      Wikimedia Commons — Stephen Ondich
+                      https://commons.wikimedia.org/wiki/File:Flamed_Quartersawn_Ash_Guitar_Top.jpg
+
+zebrano_top.jpg       graded from Roasted Figured Maple Guitar Neck Blanks.jpg
+                      Wikimedia Commons — Stephen Ondich
+                      https://commons.wikimedia.org/wiki/File:Roasted_Figured_Maple_Guitar_Neck_Blanks.jpg
+
+redwood_left.jpg      graded from Bubinga.JPG — oiled bubinga veneer
+                      Wikimedia Commons — Philipp Zinger / Das Ohr
+                      https://commons.wikimedia.org/wiki/File:Bubinga.JPG
+
+poplar_center.jpg     graded from Esche Maser Holz.JPG — figured / burl ash veneer
+                      Wikimedia Commons
+                      https://commons.wikimedia.org/wiki/File:Esche_Maser_Holz.JPG
+
+spalted_right.jpg     graded from Macassar01.jpg — Macassar ebony (Diospyros celebica)
+                      Wikimedia Commons — Böhringer Friedrich
+                      CC BY-SA 2.5
+                      https://commons.wikimedia.org/wiki/File:Macassar01.jpg
+
+rosewood.jpg          Rio-Palisander, dunkel Holz.JPG — oiled Brazilian rosewood veneer
+                      Wikimedia Commons — Philipp Zinger / Das Ohr
+                      https://commons.wikimedia.org/wiki/File:Rio-Palisander,_dunkel_Holz.JPG
+
+ash.jpg / bubinga.jpg / ebony.jpg / maple.jpg / burl.jpg
+                      original source photographs kept as offline masters
+

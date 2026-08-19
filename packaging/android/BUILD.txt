@@ -1,0 +1,18 @@
+Groove Trainer — Android
+========================
+Home-screen icons are already generated from the sun logo:
+
+  res/mipmap-mdpi|hdpi|xhdpi|xxhdpi|xxxhdpi/ic_launcher.png
+  res/mipmap-*/ic_launcher_round.png
+  res/mipmap-*/ic_launcher_foreground.png
+  res/mipmap-anydpi-v26/ic_launcher.xml
+  AndroidManifest.xml  (android:icon / android:roundIcon)
+
+This desktop app uses PyQt6 + PortAudio (sounddevice). That stack is not
+an Android APK. To ship a phone/tablet build you need Qt for Android
+(or a rewritten mobile UI) on a machine with Android Studio / SDK / NDK,
+then drop this res/ folder into the Android project so the launcher,
+Play Store listing, and adaptive icon all use the same sun.
+
+Minimum SDK target for tablets + phones: API 26+.
+Landscape is set in the manifest.

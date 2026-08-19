@@ -1,0 +1,15 @@
+Groove Trainer — macOS
+======================
+This folder is the Mac build kit. A .dmg cannot be compiled on Windows;
+run this on a Mac with Python 3.11+, PyQt6, and Xcode command-line tools.
+
+1. Copy the whole groove-trainer project onto the Mac.
+2. chmod +x packaging/macos/build.sh
+3. ./packaging/macos/build.sh
+
+The sun icon (app_icon.icns) is used for:
+- Groove Trainer.app in Finder and Dock
+- the .dmg volume
+- the installer window
+
+Output: dist_installers/macos/GrooveTrainer-macOS.dmg

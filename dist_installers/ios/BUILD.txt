@@ -1,0 +1,16 @@
+Groove Trainer — iOS / iPhone
+=============================
+App Store / home-screen icons are already generated from the sun logo:
+
+  AppIcon.appiconset/   (all iPhone + iPad + 1024 marketing sizes)
+  Info.plist            (CFBundleIconName = AppIcon)
+
+An .ipa cannot be compiled on Windows. Build on a Mac with Xcode:
+
+1. Create an iOS app target (bundle id com.antonshcherbakov.groovetrainer).
+2. Replace Assets.xcassets/AppIcon.appiconset with this folder.
+3. Use this Info.plist (or merge CFBundleIconName / orientations).
+4. Archive → Distribute (Ad Hoc or App Store).
+
+The same sun is used for the Springboard icon, Settings, Spotlight, and
+the App Store 1024×1024 image.

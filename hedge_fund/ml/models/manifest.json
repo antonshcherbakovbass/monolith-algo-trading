@@ -1,0 +1,14 @@
+{
+  "version": "20260819_155233",
+  "source": "synthetic",
+  "samples": 2437,
+  "features": 80,
+  "scalping": {
+    "accuracy_mean": 0.341871921182266,
+    "accuracy_std": 0.17347596814597002
+  },
+  "swing": {
+    "neg_mse_mean": -1.0868295647379523e-05,
+    "neg_mse_std": 1.793297176952964e-06
+  }
+}

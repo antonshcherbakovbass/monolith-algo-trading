@@ -1,0 +1,180 @@
+system:
+  mode: paper
+  log_level: INFO
+  timezone: Europe/Moscow
+  web_dashboard: true
+  voice_alerts: false
+quik:
+  host: 127.0.0.1
+  port: 34130
+  reconnect_interval_sec: 5
+  batch_window_ms: 100
+  max_requests_per_second: 50
+broker:
+  name: sber
+  account_id: YOUR_ACCOUNT_ID
+  client_code: YOUR_CLIENT_CODE
+  tinkoff_token: ''
+  tinkoff_sandbox: false
+  alor_token: ''
+  alor_refresh_token: ''
+  finam_token: ''
+  finam_client_id: ''
+commissions:
+  stocks:
+    exchange_fee_pct: 0.01
+    broker_fee_pct: 0.06
+    clearing_fee_pct: 0.01
+  futures:
+    exchange_fee_per_contract: 1.0
+    broker_fee_per_contract: 0.5
+    clearing_fee_per_contract: 0.5
+  bonds:
+    exchange_fee_pct: 0.01
+    broker_fee_pct: 0.06
+risk:
+  max_drawdown_pct: 5.0
+  max_position_pct: 10.0
+  max_daily_loss_pct: 2.0
+  max_correlation: 0.7
+  max_open_positions: 20
+  stop_loss_default_pct: 1.5
+agents:
+- name: orchestrator
+  enabled: true
+  params:
+    heartbeat_interval_sec: 10
+    agent_timeout_sec: 60
+- name: scalping
+  enabled: true
+  params:
+    min_spread_pct: 0.05
+    max_hold_seconds: 300
+    order_book_depth: 10
+    volume_threshold: 1.5
+- name: day_trading
+  enabled: true
+  params:
+    timeframes:
+    - 1m
+    - 5m
+    - 15m
+    - 1h
+    rsi_period: 14
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+- name: long_term
+  enabled: true
+  params:
+    min_hold_days: 30
+    rebalance_interval_days: 7
+    fundamental_weight: 0.4
+    technical_weight: 0.6
+- name: news
+  enabled: true
+  params:
+    rss_feeds:
+    - https://www.rbc.ru/v10/ajax/get-news-feed/
+    - https://tass.ru/rss/v2.xml
+    - https://www.interfax.ru/rss.asp
+    - https://smart-lab.ru/rss/
+    check_interval_sec: 120
+    sentiment_threshold: 0.6
+- name: risk
+  enabled: true
+  params:
+    veto_enabled: true
+    var_confidence: 0.95
+    stress_test_interval_hours: 6
+    margin_call_buffer_pct: 20.0
+- name: quant
+  enabled: true
+  params:
+    pairs:
+    - - SBER
+      - VTBR
+    - - GAZP
+      - ROSN
+    - - LKOH
+      - NVTK
+    - - GMKN
+      - RUAL
+    cointegration_window: 60
+    z_score_entry: 2.0
+    z_score_exit: 0.5
+- name: hedging
+  enabled: true
+  params:
+    loop_interval: 30
+    target_beta: 0.5
+    max_delta_pct: 30.0
+    hedge_threshold_pct: 15.0
+- name: sre
+  enabled: true
+  params:
+    loop_interval: 15
+    max_memory_mb: 2048
+    max_latency_ms: 500
+    max_errors_per_hour: 50
+    alert_cooldown_sec: 300
+telegram:
+  token: YOUR_TOKEN
+  chat_id: YOUR_CHAT_ID
+  report_interval_minutes: 60
+ai:
+  provider: ollama
+  model: llama3.1
+  base_url: http://localhost:11434
+  temperature: 0.3
+ml:
+  auto_retrain_enabled: true
+  retrain_interval_hours: 24
+  retrain_on_startup: false
+  check_interval_sec: 3600
+  min_samples: 1000
+  features_window: 100
+  models_dir: hedge_fund/ml/models
+  drift_psi_threshold: 0.2
+  drift_z_threshold: 3.0
+database:
+  url: sqlite+aiosqlite:///hedge_fund.db
+safety:
+  training_period_days: 14
+  daily_loss_lock_enabled: true
+  large_trade_threshold_rub: 50000
+  pin_required_for_live: true
+  auto_backup_enabled: true
+  risk_profile: moderate
+curator:
+  enabled: false
+  token: ''
+  chat_id: ''
+instruments:
+  stocks:
+  - GAZP
+  - ROSN
+  - NVTK
+  - SNGS
+  - TATN
+  - SBER
+  - VTBR
+  - MOEX
+  - GMKN
+  - NLMK
+  - CHMF
+  - RUAL
+  - PLZL
+  - POLY
+  - AFLT
+  - PHOR
+  futures:
+  - LKOH
+  - ALRS
+  - YNDX
+  - MGNT
+  - RIZ4
+  - SiZ4
+  - BRF5
+  - SRZ4
+  - GZZ4

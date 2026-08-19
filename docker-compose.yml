@@ -1,0 +1,32 @@
+services:
+  monolith:
+    build: .
+    container_name: monolith-trading
+    env_file:
+      - .env
+    volumes:
+      - ./hedge_fund/config:/app/hedge_fund/config:ro
+      - ./hedge_fund/ml/models:/app/hedge_fund/ml/models
+      - ./hedge_fund/logs:/app/hedge_fund/logs
+      - monolith-data:/app/hedge_fund/data
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  backtest:
+    build: .
+    profiles: ["tools"]
+    env_file:
+      - .env
+    command: >
+      python -m hedge_fund.backtesting
+      --strategy mean_reversion
+      --tickers SBER GAZP
+      --period 2024-01-01:2024-06-01
+    volumes:
+      - ./hedge_fund/logs:/app/hedge_fund/logs
+
+volumes:
+  monolith-data:
