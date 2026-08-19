@@ -25,7 +25,36 @@ git remote add origin <url-from-create>
 git push -u origin main
 ```
 
-On native Windows, use GitHub/GitLab manually or WSL for Cursor-hosted repos.
+On native Windows, use GitHub (recommended):
+
+```powershell
+winget install GitHub.cli
+gh auth login --hostname github.com --git-protocol https --web
+# Open https://github.com/login/device and enter the one-time code
+
+.\scripts\setup_github.ps1
+```
+
+Repository: https://github.com/antonshcherbakovbass/monolith-algo-trading
+
+### CI workflow (`workflow` scope)
+
+Pushing `.github/workflows/*.yml` requires the **`workflow`** OAuth scope. A plain `gh auth login` grants only `repo`.
+
+If push fails with `refusing to allow an OAuth App to create or update workflow`:
+
+```powershell
+gh auth refresh -h github.com -s workflow,repo
+# Approve at https://github.com/login/device
+
+git add .github/workflows/test.yml
+git -c user.email=monolith@local.dev -c user.name=MONOLITH commit -m "Add GitHub Actions CI"
+git push origin main
+```
+
+### Large binaries
+
+Do not commit `dist_installers/windows/*.exe` (>50 MB). They are in `.gitignore`. Use [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github) for installers.
 
 ---
 
