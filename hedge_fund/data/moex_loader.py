@@ -29,14 +29,14 @@ class MOEXDataLoader:
     BASE_URL = "https://iss.moex.com/iss"
     _PAGE_SIZE = 500
     _MAX_RPS = 3
-    _MAX_RETRIES = 2
-    _QUICK_MAX_RETRIES = 1
-    _RETRY_BACKOFF = 0.5
-    _CONNECT_TIMEOUT = 10
-    _SOCK_READ_TIMEOUT = 25
-    _TOTAL_TIMEOUT = 60
+    _MAX_RETRIES = 5
+    _QUICK_MAX_RETRIES = 2
+    _RETRY_BACKOFF = 1.0
+    _CONNECT_TIMEOUT = 15
+    _SOCK_READ_TIMEOUT = 60
+    _TOTAL_TIMEOUT = 90
     _QUICK_TIMEOUT = 12.0
-    _URLLIB_TIMEOUT = 30
+    _URLLIB_TIMEOUT = 60
     _REQUEST_HEADERS = {
         "Connection": "close",
         "User-Agent": "MONOLITH-MOEX/1.0",

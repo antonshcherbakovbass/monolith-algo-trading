@@ -1,14 +1,14 @@
 {
-  "version": "20260819_155233",
-  "source": "synthetic",
-  "samples": 2437,
-  "features": 80,
+  "version": "20260819_172011",
+  "source": "moex",
+  "samples": 12381,
+  "features": 88,
   "scalping": {
-    "accuracy_mean": 0.341871921182266,
-    "accuracy_std": 0.17347596814597002
+    "accuracy_mean": 0.48644369041848445,
+    "accuracy_std": 0.08101526422220033
   },
   "swing": {
-    "neg_mse_mean": -1.0868295647379523e-05,
-    "neg_mse_std": 1.793297176952964e-06
+    "neg_mse_mean": -10.418735015933935,
+    "neg_mse_std": 19.251953535965868
   }
 }
