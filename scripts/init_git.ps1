@@ -33,11 +33,12 @@ try {
 }
 
 git add -A
+$gitIdentity = @("-c", "user.email=monolith@local.dev", "-c", "user.name=MONOLITH")
 if (-not $hasCommits) {
-    git commit -m "Initial commit: MONOLITH algo trading platform"
+    git @gitIdentity commit -m "Initial commit: MONOLITH algo trading platform"
     Write-Host "Created initial commit" -ForegroundColor Green
 } else {
-    git commit -m "Add production infrastructure: ML pipeline, Docker, drift monitoring, smoke tests"
+    git @gitIdentity commit -m "Add production infrastructure: ML pipeline, Docker, drift monitoring, smoke tests"
     Write-Host "Created commit" -ForegroundColor Green
 }
 
