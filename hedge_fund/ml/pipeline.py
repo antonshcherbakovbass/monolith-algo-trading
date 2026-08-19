@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -193,17 +194,47 @@ async def load_frames_from_db(
 async def load_frames_from_moex(
     tickers: list[str],
     start_date: str = "2022-01-01",
+    *,
+    quick: bool = False,
+    use_cache: bool = True,
 ) -> list[pd.DataFrame]:
-    loader = MOEXDataLoader()
+    """Load MOEX candles. quick=True: fast probe, abort after first ticker failure."""
+    loader = MOEXDataLoader(use_cache=use_cache)
     frames: list[pd.DataFrame] = []
-    for ticker in tickers:
+    log.info("MOEX download: {} tickers from {} (quick={})", len(tickers), start_date, quick)
+    _cli_print(f"Загрузка MOEX: {', '.join(tickers)} с {start_date}...")
+    for i, ticker in enumerate(tickers, 1):
         try:
-            df = await loader.fetch_candles(ticker, start_date=start_date)
+            _cli_print(f"[{i}/{len(tickers)}] {ticker} — запрос к iss.moex.com...")
+            df = await loader.fetch_candles(
+                ticker, start_date=start_date, quick=quick, use_cache=use_cache,
+            )
             if len(df) >= 100:
                 frames.append(df)
+                _cli_print(f"[{i}/{len(tickers)}] {ticker} — OK, {len(df)} свечей")
+            else:
+                log.warning("MOEX: {} — only {} rows, skipped", ticker, len(df))
+                _cli_print(f"[{i}/{len(tickers)}] {ticker} — мало данных ({len(df)} строк)")
+                if quick:
+                    _cli_print("MOEX quick: прерываем — нет данных у первого тикера")
+                    break
+        except (TimeoutError, OSError, asyncio.TimeoutError) as exc:
+            log.error("MOEX timeout for {}: {}", ticker, exc)
+            _cli_print(f"[{i}/{len(tickers)}] {ticker} — недоступен: {exc}")
+            if quick:
+                _cli_print("MOEX quick: прерываем после ошибки первого тикера")
+                break
         except Exception as exc:
             log.warning("MOEX fetch failed for {}: {}", ticker, exc)
+            _cli_print(f"[{i}/{len(tickers)}] {ticker} — ошибка: {exc}")
+            if quick:
+                break
     return frames
+
+
+def _cli_print(msg: str) -> None:
+    """Immediate stdout for Windows cmd (works with python -u)."""
+    print(msg, flush=True)
 
 
 def load_frames_synthetic(n: int = 2500, seed: int = 42) -> list[pd.DataFrame]:
@@ -229,6 +260,7 @@ async def run_ml_pipeline(
     source: str = "auto",
     db_url: str | None = None,
     db: Database | None = None,
+    use_cache: bool = True,
 ) -> dict[str, Any]:
     """Single training pipeline.
 
@@ -242,6 +274,9 @@ async def run_ml_pipeline(
     frames: list[pd.DataFrame] = []
     used_source = source
 
+    _cli_print(f"ML pipeline: source={source}, tickers={tickers}, start={start_date}")
+    log.info("ML pipeline start: source={} tickers={}", source, tickers)
+
     if source in ("auto", "db") and db_url:
         try:
             frames = await load_frames_from_db(tickers, db_url)
@@ -251,16 +286,40 @@ async def run_ml_pipeline(
             log.warning("DB load failed: {}", exc)
 
     if not frames and source in ("auto", "moex"):
+        moex_quick = source == "auto"
+        if moex_quick:
+            _cli_print("MOEX: быстрая проверка (до ~20 сек)...")
+        else:
+            _cli_print("Подключение к MOEX ISS (iss.moex.com)...")
         try:
-            frames = await load_frames_from_moex(tickers, start_date)
+            frames = await load_frames_from_moex(
+                tickers, start_date, quick=moex_quick, use_cache=use_cache,
+            )
             if frames:
                 used_source = "moex"
         except Exception as exc:
             log.warning("MOEX load failed: {}", exc)
+            _cli_print(f"MOEX недоступен: {exc}")
 
     if not frames and source in ("auto", "synthetic"):
+        if source == "auto":
+            _cli_print(
+                "MOEX недоступен — обучение на synthetic данных.\n"
+                "  Проверьте: интернет, VPN, антivirus (SSL), https://iss.moex.com\n"
+                "  Для MOEX вручную: python -u -m hedge_fund.ml.train_pipeline --source moex --tickers SBER"
+            )
+        else:
+            _cli_print("Генерация synthetic данных...")
         frames = load_frames_synthetic()
         used_source = "synthetic"
+
+    if not frames and source == "moex":
+        return {
+            "error": (
+                "no moex data — проверьте интернет, VPN/файрвол, "
+                "откройте https://iss.moex.com в браузере"
+            )
+        }
 
     if not frames:
         return {"error": "no training data from any source"}
